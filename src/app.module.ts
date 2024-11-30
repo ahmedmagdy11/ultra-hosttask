@@ -8,6 +8,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { TasksModule } from './tasks/tasks.module';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './shared/jwt.strategy';
+import { APP_FILTER } from '@nestjs/core';
+import { HttpExceptionFilter } from './shared/http-exception.filter';
 
 @Module({
   imports: [
@@ -33,6 +35,13 @@ import { JwtStrategy } from './shared/jwt.strategy';
     TasksModule,
   ],
   controllers: [AppController],
-  providers: [JwtStrategy, AppService],
+  providers: [
+    JwtStrategy,
+    AppService,
+    {
+      provide: APP_FILTER,
+      useClass: HttpExceptionFilter,
+    },
+  ],
 })
 export class AppModule {}
