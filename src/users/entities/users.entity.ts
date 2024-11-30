@@ -1,5 +1,6 @@
-import { Role } from 'src/role.enum';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Role } from 'src/shared/role.enum';
+import { Tasks } from 'src/tasks/entities/tasks.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('users')
 export class Users {
@@ -14,4 +15,7 @@ export class Users {
 
   @Column('varchar')
   role: Role;
+
+  @OneToMany(() => Tasks, (task) => task.createdBy)
+  tasks: Tasks[];
 }

@@ -1,4 +1,4 @@
-import { Role } from 'src/role.enum';
+import { Role } from 'src/shared/role.enum';
 
 export interface ITokenPayload {
   id: string;
