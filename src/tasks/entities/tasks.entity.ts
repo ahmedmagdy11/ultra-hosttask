@@ -3,6 +3,7 @@ import { Users } from 'src/users/entities/users.entity';
 import {
   Column,
   Entity,
+  JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
   Relation,
@@ -22,6 +23,7 @@ export class Tasks {
   @Column('varchar')
   status: TaskStatus;
 
+  @JoinColumn({ name: 'createdBy' })
   @ManyToOne(() => Users, (user) => user.tasks)
   createdBy: Relation<Users>;
 }

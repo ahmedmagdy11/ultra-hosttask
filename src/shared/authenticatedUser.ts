@@ -1,6 +1,6 @@
 import { Role } from './role.enum';
 
-export class AuthenticatedUser {
+export class IAuthenticatedUser {
   id: string;
   username: string;
   role: Role;

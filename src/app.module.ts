@@ -5,6 +5,9 @@ import { UsersModule } from './users/users.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import typeormConfig from './ormconfig';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { TasksModule } from './tasks/tasks.module';
+import { JwtModule } from '@nestjs/jwt';
+import { JwtStrategy } from './shared/jwt.strategy';
 
 @Module({
   imports: [
@@ -22,9 +25,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         return configService.get('typeormConfig');
       },
     }),
+    JwtModule.register({
+      secret: process.env.JWT_SECRET,
+      signOptions: { expiresIn: process.env.JWT_ACCESS_EXPIRATION_TIME },
+    }),
     UsersModule,
+    TasksModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [JwtStrategy, AppService],
 })
 export class AppModule {}

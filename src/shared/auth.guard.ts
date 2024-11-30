@@ -54,11 +54,13 @@ export class AuthGuard implements CanActivate {
         'authTypes',
         context.getHandler(),
       );
+      console.log(authTypes);
       if (!authTypes || !authTypes.includes(user.role)) {
         throw new UnauthorizedException('UNAUTHENTICATED');
       }
       return true;
     } catch (err: any) {
+      console.log(err);
       if (err.message === 'jwt expired') {
         throw new UnauthorizedException('TOKEN_EXPIRED_ERROR');
       }
